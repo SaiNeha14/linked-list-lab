@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Linked List Lab"
+description = "An interactive educational website for learning data structures through a visual singly linked list playground. Users can perform core operations, inspect each step, and understand the underlying algorithms."
+version = "1.0.0"
+id = "artifacts/linked-list-lab"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19168
+
+[services.development]
+run = "pnpm --filter @workspace/linked-list-lab run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/linked-list-lab", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/linked-list-lab/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19168"
+BASE_PATH = "/"
